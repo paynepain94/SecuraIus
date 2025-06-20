@@ -1,0 +1,32 @@
+jQuery(function($){
+    $('.js-close-slide-in-cta').click(function (e) {
+        e.preventDefault();
+        $('.slide-in-cta-wrapper').addClass('hide');
+    });
+});
+
+setTimeout(function() {
+	document.addEventListener("DOMContentLoaded", function() {
+        var eventStats = [].slice.call(document.querySelectorAll(".js-form-hide-cta"));
+    
+        if ("IntersectionObserver" in window) {
+            var eventStatsObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(stat) {
+                    if (stat.isIntersecting) {
+
+						jQuery('.slide-in-cta-wrapper').addClass('hide');
+
+                    } else {
+
+                        jQuery('.slide-in-cta-wrapper').removeClass('hide');
+
+                    }
+                });
+            });
+        
+            eventStats.forEach(function(eventStat) {
+                eventStatsObserver.observe(eventStat);
+            });
+        }
+    });
+}, 0);

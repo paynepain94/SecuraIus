@@ -1,0 +1,93 @@
+// Array keys:
+// 0: question
+// 1: answer 1
+// 2: answer 1 poimts
+// 3: answer 2
+// 4: answer 2 poimts
+// 5: answer 3
+// 6: answer 3 poimts
+
+// json array for questions
+var questions = {
+    "question1": [
+        'Cuando tu empresa identifica una nueva amenaza o vulnerabilidad, ¿cuál es el proceso habitual de respuesta?',
+        'Las amenazas se detectan y combaten de forma proactiva, a menudo antes de llegar a materializarse.',
+        '3',
+        'Apostamos por medidas instantáneas, como reaccionar caso por caso, aplicar parches rápidos o escalar los incidentes cuando surgen, sin un proceso predefinido.',
+        '1',
+        'Seguimos un plan estructurado de respuesta a incidentes que describe roles y acciones.',
+        '2',
+    ],
+    "question2": [
+        '¿Cómo se asegura tu empresa de que los empleados estén preparados para hacer frente a las ciberamenazas?',
+        'Los empleados reciben formación en ciberseguridad personalizada y simulaciones interactivas basadas en sus funciones y riesgos.',
+        '2',
+        'Lanzamos cursos anuales de formación genérica que satisfacen los requisitos de cumplimiento normativo.',
+        '3',
+        'La concienciación de la seguridad está integrada en las actividades diarias, se apoya con formación adaptada a las distintas funciones y herramientas en tiempo real como chatbots basados en IA.',
+        '1',
+    ],
+    "question3": [
+        'Un proveedor de confianza sufre una fuga de datos. ¿Qué ocurre entonces?',
+        'Nuestro proceso de gestión de riesgos de proveedores identifica la brecha en una fase temprana, y adoptamos medidas inmediatas.',
+        '1',
+        'Los sistemas de supervisión proactiva nos alertan y ponemos en marcha un plan de contención predefinido.',
+        '2',
+        'No advertimos la brecha hasta que no afecta a nuestra actividad.',
+        '3',
+    ],
+    "question4": [
+        '¿Cómo gestiona tu empresa las amenazas multicanal, como phishing, smishing y vishing?',
+        'Nos centramos principalmente en detectar los ataques de phishing basados en email.',
+        '2',
+        'Nuestras defensas contemplan diversos canales y cubren cada vez más amenazas nuevas.',
+        '3',
+        'Utilizamos herramientas avanzadas para detectar y reaccionar a las amenazas multicanal en tiempo real.',
+        '1',
+    ],
+    "question5": [
+        '¿Cómo aborda tu empresa la gestión de riesgos de terceros?',
+        'Realizamos una evaluación minuciosa de los proveedores y sus cadenas de suministro utilizando automatización e información detallada obtenida por IA.',
+        '1',
+        'Nos basamos en contratos básicos con proveedores y cuestionarios periódicos.',
+        '2',
+        'Verificamos periódicamente las estrategias de seguridad de los proveedores y acometemos los principales riesgos.',
+        '3',
+    ],
+    "question6": [
+        '¿Cómo se comunican los riesgos de ciberseguridad en tu empresa?',
+        'Los riesgos se comunican a la dirección y a los empleados mediante circulares y sesiones informativas ocasionales.',
+        '3',
+        'La concienciación sobre los riesgos está arraigada en todos los equipos, y la dirección impulsa activamente las iniciativas.',
+        '1',
+        'La comunicación de riesgos se limita al departamento de TI de informática.',
+        '2',
+    ],
+    "question7": [
+        '¿Cómo garantiza tu empresa la seguridad de las herramientas de IA que utiliza?',
+        'Los riesgos específicos de la IA forman parte de nuestra estrategia de seguridad más amplia y se supervisan continuamente para detectar vulnerabilidades.',
+        '2',
+        'Aplicamos medidas de seguridad básicas, como políticas de control de acceso y protección de datos.',
+        '1',
+        'Aún no hemos abordado los riesgos específicos de la IA.',
+        '3',
+    ],
+    "question8": [
+        'Si un sistema crítico deja de funcionar por un ciberataque, ¿en qué consiste el proceso de recuperación?',
+        'Tenemos un plan de recuperación documentado que implica a todos los equipos afectados.',
+        '2',
+        'Los sistemas automatizados y la colaboración entre distintas funciones reducen las interrupciones al mínimo.',
+        '3',
+        'La recuperación depende de la reacción de los equipos informáticos para resolver el problema.',
+        '1',
+    ],
+    "question9": [
+        '¿Cómo evalúa tu empresa la eficacia de sus iniciativas de ciberseguridad?',
+        'Analizamos métricas basadas en el cumplimiento de las normativas, como porcentajes de finalización de la formación, pero no los cambios de comportamiento.',
+        '1',
+        'Recopilamos datos para llevar un seguimiento de los comportamientos de seguridad y extraer conclusiones sobre mejoras estratégicas.',
+        '3',
+        'Evaluamos los progresos mediante indicadores clave de rendimiento, por ejemplo, los resultados de simulaciones de phishing y los tiempos de respuesta a los incidentes.',
+        '2',
+    ]
+};

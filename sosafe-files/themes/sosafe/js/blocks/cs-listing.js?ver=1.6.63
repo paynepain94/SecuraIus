@@ -1,0 +1,80 @@
+jQuery(function($){
+
+    function get_cs(currentPage) {
+
+        var industry = $('.js-cs-industry-filter').find(":selected").val();
+        var employee = $('.js-cs-employee-filter').find(":selected").val();
+        var product = $('.js-cs-product-filter').find(":selected").val();
+        var cs_lang = $('.js-cs-list').attr("data-lang");
+
+        $.ajax({
+            type: 'POST',
+            url: '/wp-admin/admin-ajax.php',
+            dataType: 'json',
+            data: {
+                action: 'cs_load_more',
+                paged: currentPage,
+                industry: industry,
+                employee: employee,
+                product: product,
+                lang: cs_lang,
+            },
+            success: function (res) {
+                if(currentPage >= res.max) {
+                    $('.js-more-cs').hide();
+                }
+                if( res.html == null ) {
+                    $('.no-results').show();
+                    $('.case-studies-wrap').addClass('no-results-wrap');
+                } else {
+                    $('.no-results').hide();
+                    $('.case-studies-wrap').removeClass('no-results-wrap');
+                }
+                $('.js-cs-list').append(res.html);
+            }
+        });
+    }
+
+    $('.js-more-cs').on('click', function(e) {
+        e.preventDefault();
+
+        currentPage = $('.js-more-cs').attr('data-page'); // get pagination
+        currentPage++; // add 1
+        $('.js-more-cs').attr('data-page', currentPage); // set pagination
+        currentPage = $('.js-more-cs').attr('data-page'); // get updated pagination
+
+        get_cs(currentPage);
+    });
+
+    $('.js-cs-industry-filter, .js-cs-employee-filter, .js-cs-product-filter').on('change', function() {
+        $('.js-cs-filter-target').remove();
+        
+        $('.js-more-cs').attr('data-page', '1'); // reset pagination
+        currentPage = $('.js-more-cs').attr('data-page'); // get updated pagination
+
+        get_cs(currentPage);
+        $('.js-more-cs').show();
+    });
+
+    $('.js-filter-reset').click(function (e) {
+        e.preventDefault();
+
+        var industry = $('.js-cs-industry-filter').find(":selected").val();
+        var employee = $('.js-cs-employee-filter').find(":selected").val();
+        var product = $('.js-cs-product-filter').find(":selected").val();
+
+        if( industry != 'all' || employee != 'all' || product != 'all' ) {
+            $('.js-cs-industry-filter').val('all');
+            $('.js-cs-employee-filter').val('all');
+            $('.js-cs-product-filter').val('all');
+
+            $('.js-cs-filter-target').remove();
+            
+            $('.js-more-cs').attr('data-page', '1'); // reset pagination
+            currentPage = $('.js-more-cs').attr('data-page'); // get updated pagination
+            get_cs(currentPage);
+            
+        }
+    });
+
+});

@@ -1,0 +1,38 @@
+jQuery(function($){
+    
+    var tickerText = new Swiper(".js-ticker-text", {
+        observer: true,
+        observeParents: true,
+        spaceBetween: 0,
+        centeredSlides: true,
+        speed: 8000,
+        autoplay: {
+            delay: 1,
+        },
+        loop: true,
+        slidesPerView:'auto',
+        allowTouchMove: false,
+        disableOnInteraction: true
+    });
+
+    const slides = document.querySelectorAll('.js-image-carousel .swiper-slide');
+
+    var imageCarousel = new Swiper(".js-image-carousel", {
+        loop: true,
+        centeredSlides: true,
+        spaceBetween: 0,
+        autoHeight: false,
+        slidesPerView: '1',
+        autoplay: {
+            delay: 5000,
+        },
+        pagination: {
+          el: '.js-image-carousel-pagination',
+                clickable: true,
+                renderBullet: function (index, className) {
+                    return '<div class="' + className + '"><img src="' + slides[index].dataset.thumb + '"/></div>';
+                },
+        },
+    });
+
+});

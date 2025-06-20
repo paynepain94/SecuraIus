@@ -1,0 +1,14 @@
+jQuery(function($){
+    var $cards = $('.js-mission-card');
+
+    $cards.first().addClass('active');
+
+    setInterval(function(){
+        var $next = $('.js-mission-card.active').removeClass('active').next();
+        if ($next.length) {
+            $next.addClass('active');
+        } else {
+            $cards.first().addClass('active');
+        }
+    }, 4000);
+});

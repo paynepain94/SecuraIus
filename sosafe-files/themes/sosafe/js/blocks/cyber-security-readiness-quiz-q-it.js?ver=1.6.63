@@ -1,0 +1,93 @@
+// Array keys:
+// 0: question
+// 1: answer 1
+// 2: answer 1 poimts
+// 3: answer 2
+// 4: answer 2 poimts
+// 5: answer 3
+// 6: answer 3 poimts
+
+// json array for questions
+var questions = {
+    "question1": [
+        'Quali sono le fasi di risposta nella tua organizzazione quando viene identificata una nuova minaccia o vulnerabilità?',
+        'Le minacce vengono rilevate e neutralizzate in modo proattivo, spesso prima che si concretizzino.',
+        '3',
+        'Ci affidiamo a misure ad hoc, come la gestione caso per caso, l’applicazione di soluzioni rapide o l’escalation dei problemi senza un processo predefinito.',
+        '1',
+        'Seguiamo un piano strutturato di risposta agli incidenti che definisce ruoli e azioni.',
+        '2',
+    ],
+    "question2": [
+        'Come fa la tua organizzazione a garantire che i dipendenti siano preparati a gestire le minacce informatiche?',
+        'I dipendenti ricevono formazione personalizzata sulla sicurezza e simulazioni interattive in base ai loro ruoli e ai rischi specifici.',
+        '2',
+        'Organizziamo sessioni di formazione generiche annuali per soddisfare i requisiti di conformità.',
+        '3',
+        'La consapevolezza della sicurezza è integrata nelle operazioni quotidiane, supportata da formazione specifica per ruolo e strumenti in tempo reale come chatbot basati su IA.',
+        '1',
+    ],
+    "question3": [
+        'Un fornitore con cui collabori subisce una violazione dei dati. Cosa succede dopo?',
+        'Il nostro processo di gestione del rischio dei fornitori identifica la violazione tempestivamente e agiamo immediatamente.',
+        '1',
+        'Siamo allertati da sistemi di monitoraggio proattivo e mettiamo in atto un piano di contenimento predefinito.',
+        '2',
+        'Ci rendiamo conto della violazione solo dopo che ha impattato le nostre operazioni.',
+        '3',
+    ],
+    "question4": [
+        'Come affronta la tua organizzazione le minacce multicanale come phishing, smishing e vishing?',
+        'Ci concentriamo principalmente sul rilevare gli attacchi di phishing via email.',
+        '2',
+        'Le nostre difese coprono più canali e stiamo ampliando la protezione contro nuove minacce.',
+        '3',
+        'Usiamo strumenti avanzati per rilevare e rispondere in tempo reale alle minacce multicanale.',
+        '1',
+    ],
+    "question5": [
+        'Qual è il tuo approccio alla gestione del rischio dei fornitori terzi?',
+        'Valutiamo in modo approfondito i fornitori e le loro catene di approvvigionamento, utilizzando automazione e analisi basate sull’IA.',
+        '1',
+        'Gestiamo i fornitori attraverso contratti di base e  questionari periodici.',
+        '2',
+        'Monitoriamo regolarmente il livello di sicurezza dei fornitori e interveniamo sui rischi più rilevanti.',
+        '3',
+    ],
+    "question6": [
+        'Come vengono comunicati i rischi legati alla cyber security all’interno della tua organizzazione?',
+        'I rischi vengono condivisi con la leadership e i dipendenti tramite report e briefing occasionali.',
+        '3',
+        'Tutti i team sono sensibilizzati sui rischi e la leadership promuove attivamente iniziative di sicurezza.',
+        '1',
+        'La comunicazione dei rischi è limitata al dipartimento IT.',
+        '2',
+    ],
+    "question7": [
+        'Come assicuri la sicurezza degli strumenti di IA adottati dalla tua organizzazione?',
+        'I rischi specifici dell’IA fanno parte della nostra strategia di sicurezza complessiva e vengono monitorati continuamente per individuare vulnerabilità.',
+        '2',
+        'Implementiamo misure di base, come il controllo degli accessi e le policy di protezione dei dati.',
+        '1',
+        'Non abbiamo ancora affrontato i rischi specifici legati all’IA.',
+        '3',
+    ],
+    "question8": [
+        'Quando un sistema critico va offline a causa di un incidente informatico, qual è il processo di recupero?',
+        'Abbiamo un piano documentato di ripristino che coinvolge tutti i team rilevanti.',
+        '2',
+        'Sistemi automatizzati e un lavoro sinergico tra i reparti limitano al minimo le interruzioni.',
+        '3',
+        'Il recupero dipende dal team IT che gestisce il problema in modo reattivo.',
+        '1',
+    ],
+    "question9": [
+        'Come valuta la tua organizzazione l’efficacia delle sue iniziative di cyber security?',
+        'Misuriamo metriche basate sulla conformità, come i tassi di completamento della formazione, ma non i cambiamenti comportamentali.',
+        '1',
+        'Analizziamo dati concreti per monitorare i comportamenti di sicurezza e guidare miglioramenti strategici.',
+        '3',
+        'Valutiamo i progressi attraverso indicatori chiave di performance (KPI), come i risultati delle simulazioni di phishing e i tempi di risposta agli incidenti.',
+        '2',
+    ]
+};

@@ -1,0 +1,59 @@
+jQuery(function($){
+    var cardsCarousel = new Swiper(".swiper-cards-carousel", {
+        loop: true,
+        navigation: {
+            nextEl: ".swiper-cards-carousel-next",
+            prevEl: ".swiper-cards-carousel-prev",
+        },
+        variableWidth: true,
+        centeredSlides: true,
+        slidesPerView: 'auto',
+        on: {
+            transitionStart: function(){
+              
+                var videos = document.querySelectorAll('video');
+            
+                if(videos) {
+                    Array.prototype.forEach.call(videos, function(video){
+                        video.pause();
+                    });
+                }
+            },
+            
+            transitionEnd: function(){
+
+                var activeIndex = this.activeIndex;
+                var activeSlide = document.getElementsByClassName('swiper-slide')[activeIndex];
+                var activeSlideVideo = activeSlide.getElementsByTagName('video')[0];
+
+                if(activeSlideVideo) {
+                    activeSlideVideo.play();
+                }
+            
+            },
+          
+          }
+    });
+
+    $('.js-close-card-modal-popup, .js-card-modal-popup-overlay').click(function (e) {
+        e.preventDefault();
+
+        $('.js-card-modal-popup-wrapper').removeClass('show');
+    });
+
+    $('.js-card-modal-popup-trigger').click(function (e) {
+        e.preventDefault();
+        
+        var modalFormID = $('.js-form-placeholder').attr('data-form-id');
+
+        // create form
+        hbspt.forms.create({
+            region: "na1",
+            portalId: "8858700",
+            formId: modalFormID,
+            target: ".js-form-placeholder"
+        });
+
+        $('.js-card-modal-popup-wrapper').addClass('show');
+    });
+});

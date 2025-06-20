@@ -1,0 +1,18 @@
+jQuery(function($){
+    var swiper11 = new Swiper(".swiper-tabbed-carousel", {
+        slidesPerView: 1,
+        loop: true,
+        navigation: {
+            nextEl: ".js-tabbed-carousel-next",
+            prevEl: ".js-tabbed-carousel-prev",
+        },
+        pagination: {
+            el: ".js-tabbed-carousel-nav",
+            clickable: true,
+            renderBullet: function (index, className) {
+                // console.log($('.swiper-tabbed-carousel .swiper-slide[data-swiper-slide-index="' + index + '"]').attr('data-title'));
+                return '<span class="tabbed-carousel-button ' + className + '"><img loading="lazy" class="caret" src="/sosafe-files/themes/sosafe/img/icon-chevron-right-slim.svg" height="16" width="9"/><span class="tab-title">' + $('.swiper-tabbed-carousel .swiper-slide[data-swiper-slide-index="' + index + '"]').attr('data-title') + "</span><span class='number'>" + (index + 1) + "</span></span>";
+            },
+        },
+    });
+});

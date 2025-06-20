@@ -1,0 +1,73 @@
+jQuery(function($){
+
+    $(".js-perk-category-filter").on('change', function() {
+        if ($(this).val() == 'all'){
+            $('.js-perk-filter-target').removeClass('category-filtered');
+        } else {
+            var region = $(this).val();
+            $('.js-perk-filter-target').addClass('category-filtered');
+            $('.js-perk-filter-target.' + region).removeClass('category-filtered');
+        }
+
+    });
+
+    $(".js-perk-region-filter").on('change', function() {
+        if ($(this).val() == 'all'){
+            $('.js-event-filter-target').removeClass('region-filtered');
+        } else {
+            var region = $(this).val();
+            $('.js-perk-filter-target').addClass('region-filtered');
+            $('.js-perk-filter-target.' + region).removeClass('region-filtered');
+        }
+
+    });
+
+    $('.js-perk-click').click(function (e) {
+        e.preventDefault();
+
+        var perk = $(this).attr('data-perk');
+        var perk = perk.replaceAll('_', ' ');
+
+        $('.js-perks-popup-wrapper').addClass('show');
+
+        $('.perks-popup-inner select[name="perk"]').val(perk);
+
+    });
+
+    $('.js-close-perks-popup, .js-perks-popup-overlay').click(function (e) {
+        e.preventDefault();
+
+        $('.js-perks-popup-wrapper').removeClass('show');
+
+    });
+
+    function t() {
+        var s = $(".js-search-target").length,
+            t = $(".js-search-target[class*='filtered']").length;
+        s == t ? ($(".no-results").addClass("show")) : ($(".no-results").removeClass("show"));
+    }
+    var searchInput = $(".js-perk-search");
+    $(searchInput).keyup(function () {
+        var searchTerm = $(this).val();
+        if( searchTerm ) {
+            searchInput.parents('.field').addClass('label-active');
+        } else {
+            searchInput.parents('.field').removeClass('label-active');
+        }
+        return $(searchInput).val()
+            ? ($(".js-search-target").each(function () {
+                    $(this).text().search(new RegExp(searchTerm, "i")) < 0 ? $(this).addClass("search-filtered") : $(this).removeClass("search-filtered");
+                }),
+                void t())
+            : ($(".js-search-target").removeClass("search-filtered"), $(".no-results").removeClass("show"));
+    });
+
+    if(window.location.hash) {
+        var perk = window.location.hash.substring(1);
+
+        setTimeout(function() {
+            $('.js-perk-click[data-perk=' + perk + ']').click();
+        }, 400);
+    }
+
+});

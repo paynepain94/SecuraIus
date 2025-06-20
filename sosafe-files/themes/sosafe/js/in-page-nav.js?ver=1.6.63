@@ -1,0 +1,29 @@
+(function() {
+    'use strict';
+
+    var section = document.querySelectorAll("body > section");
+    var sections = {};
+    var i = 0;
+
+    Array.prototype.forEach.call(section, function(e) {
+        sections[e.id] = e.offsetTop - 150;
+    });
+
+    window.onscroll = function() {
+        var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+        
+        for (i in sections) {
+            if (sections[i] <= scrollPosition) {
+
+                var elems = document.querySelectorAll(".in-page-nav .js-in-page-link");
+                [].forEach.call(elems, function(el) {
+                    el.classList.remove("active");
+                });
+
+                if( i && document.querySelector('.in-page-nav a[href*=' + i + ']') ){
+                    document.querySelector('.in-page-nav a[href*=' + i + ']').setAttribute('class', 'js-in-page-link active');
+                }
+            }
+        }
+    };
+})();

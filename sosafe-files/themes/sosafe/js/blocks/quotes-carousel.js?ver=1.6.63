@@ -1,0 +1,29 @@
+jQuery(function($){
+    if( $('.swiper-quotes').length ){
+        var swiper2 = new Swiper(".swiper-quotes", {
+            spaceBetween: 30,
+            direction: "vertical",
+            autoHeight: true,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+            on: {
+                init: function () {
+                    setSlideHeight(this);
+                },
+                slideChangeTransitionEnd: function () {
+                    setSlideHeight(this);
+                }
+            }
+        });
+        function setSlideHeight(that) {
+            $('.swiper-quotes>.swiper-wrapper>.swiper-slide').css({ height: 'auto' });
+            var currentSlide = that.activeIndex;
+            var newHeight = $(that.slides[currentSlide]).height();
+
+            $('.swiper-quotes>.swiper-wrapper,.swiper-quotes>.swiper-wrapper>.swiper-slide').css({ height: newHeight })
+            that.update();
+        }
+    }
+});

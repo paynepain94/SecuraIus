@@ -1,0 +1,93 @@
+// Array keys:
+// 0: question
+// 1: answer 1
+// 2: answer 1 poimts
+// 3: answer 2
+// 4: answer 2 poimts
+// 5: answer 3
+// 6: answer 3 poimts
+
+// json array for questions
+var questions = {
+    "question1": [
+        'When your organization identifies a new threat or vulnerability, how does the response process typically unfold?',
+        'Threats are detected and mitigated proactively, often before they materialize.',
+        '3',
+        'We rely on ad hoc measures, such as reacting case-by-case, applying quick fixes, or escalating issues as they arise without a predefined process.',
+        '1',
+        'We follow a structured incident response plan that outlines roles and actions.',
+        '2',
+    ],
+    "question2": [
+        'How does your organization ensure employees are equipped to handle cyber threats?',
+        'Employees receive tailored security training and interactive simulations based on their roles and risks.',
+        '2',
+        'We conduct generic training sessions annually to meet compliance requirements.',
+        '3',
+        'Security awareness is embedded into daily operations, supported by role-specific training and real-time tools like AI-driven chatbots.',
+        '1',
+    ],
+    "question3": [
+        'A vendor you rely on experiences a data breach. What happens next?',
+        'Our vendor risk management process identifies the breach early, and we take immediate action.',
+        '1',
+        'We are alerted by proactive monitoring systems and execute a predefined containment plan.',
+        '2',
+        'We become aware of the breach only after it disrupts our operations.',
+        '3',
+    ],
+    "question4": [
+        'How does your organization handle multichannel threats like phishing, smishing, and vishing?',
+        'We focus mainly on detecting email-based phishing attacks.',
+        '2',
+        'Our defenses address multiple channels, with growing coverage of newer threats.',
+        '3',
+        'We use advanced tools to detect and respond to multichannel threats in real time.',
+        '1',
+    ],
+    "question5": [
+        'What’s your approach to third-party risk management?',
+        'We evaluate vendors and their supply chains comprehensively, using automation and AI insights.',
+        '1',
+        'We rely on basic vendor contracts and periodic questionnaires.',
+        '2',
+        'We assess vendors’ security postures regularly and address key risks.',
+        '3',
+    ],
+    "question6": [
+        'How are cyber security risks communicated across your organization?',
+        'Risks are shared with leadership and employees through reports and occasional briefings.',
+        '3',
+        'Risk awareness is embedded across all teams, with leadership actively driving initiatives.',
+        '1',
+        'Risk communication is limited to the IT department.',
+        '2',
+    ],
+    "question7": [
+        'How do you ensure the security of AI tools adopted by your organization?',
+        'AI-specific risks are part of our broader security strategy, monitored continuously for vulnerabilities.',
+        '2',
+        'We implement basic safeguards, such as access control and data protection policies.',
+        '1',
+        'We haven’t addressed AI-specific risks yet.',
+        '3',
+    ],
+    "question8": [
+        'When a critical system goes offline due to a cyber incident, what’s your recovery process like?',
+        'We have a documented recovery plan that involves all relevant teams.',
+        '2',
+        'Automated systems and cross-functional collaboration ensure minimal disruption.',
+        '3',
+        'Recovery relies on IT teams resolving the issue reactively.',
+        '1',
+    ],
+    "question9": [
+        'How does your organization assess the effectiveness of its cyber security initiatives?',
+        'We measure compliance-based metrics, like training completion rates, but not behavior changes.',
+        '1',
+        'Data-driven insights track security behaviors and inform strategic improvements.',
+        '3',
+        'We assess progress using key performance indicators, such as phishing simulation results and incident response times.',
+        '2',
+    ]
+};

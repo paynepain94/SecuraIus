@@ -1,0 +1,21 @@
+jQuery(function($){
+    $.fn.isInViewport = function() {
+        var elementTop = $(this).offset().top;
+        var elementBottom = elementTop + $(this).outerHeight();
+      
+        var viewportTop = $(window).scrollTop();
+        var viewportBottom = viewportTop + $(window).height();
+      
+        return elementBottom > viewportTop && elementTop < viewportBottom;
+    };
+    
+    $(window).on('resize scroll', function() {
+        $('.js-in-view').each(function() {
+            if ($(this).isInViewport()) {
+                $(this).parents('.video-text-item').addClass('in-view');
+            } else {
+                $(this).parents('.video-text-item').removeClass('in-view');
+            }
+        });
+    }); 
+});

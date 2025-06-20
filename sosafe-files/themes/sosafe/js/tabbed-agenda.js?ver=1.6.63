@@ -1,0 +1,11 @@
+jQuery(function($){
+
+    $('.js-speaker-bio-toggle').click(function (e) {
+        e.preventDefault();
+
+        $(this).toggleClass('open');
+        $(this).parent().find('.js-bio-target').toggleClass('open');
+
+    });
+
+});

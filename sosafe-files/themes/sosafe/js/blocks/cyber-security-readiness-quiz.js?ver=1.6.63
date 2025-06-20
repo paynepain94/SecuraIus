@@ -1,0 +1,178 @@
+String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+        return typeof args[number] != 'undefined'
+            ? args[number]
+            : match
+        ;
+    });
+};
+
+var keys = Object.keys(questions);
+
+jQuery(function($){
+
+    var questionTemplate = $("#question-template").html();
+    
+    // build out the questions
+    var questionCount = 1;
+    for (var key in keys) {
+        var question = keys[key];
+        
+        // Array keys:
+        // 0: question
+        // 1: answer 1
+        // 2: answer 1 poimts
+        // 3: answer 2
+        // 4: answer 2 poimts
+        // 5: answer 3
+        // 6: answer 3 poimts
+
+        $('.js-quiz-questions').append(
+            questionTemplate.format(
+                questions[question][0],
+                questions[question][1],
+                questions[question][2],
+                questions[question][3],
+                questions[question][4],
+                questions[question][5],
+                questions[question][6],
+                questionCount,
+                question
+            )
+        );
+        questionCount++;
+
+    }
+
+    // start quiz
+    $('.js-start-quiz').click(function (e) {
+        e.preventDefault();
+        $('.readiness-quiz-slide.intro').removeClass('active');
+        $('.readiness-quiz-slide.question-1').addClass('active');
+        $('.quiz-controls').addClass('active');
+    });
+
+    // select an answer to activate next button
+    $('.js-quiz-question').click(function(){
+        $(this).parents('.js-readiness-quiz-slide').find('.js-quiz-next').removeAttr("disabled");
+        $(this).parents('.js-readiness-quiz-slide').find('.js-quiz-finish').removeAttr("disabled");
+    });
+
+    // go to next question
+    $('.js-quiz-next').click(function (e) {
+        e.preventDefault();
+
+        // get the current question
+        currentQ = $('.js-readiness-quiz-slide.active').attr('data-question');
+        var nextQ = Math.round(parseInt(currentQ) + 1);
+
+        // hide current Q
+        $('.js-readiness-quiz-slide.active').removeClass('active');
+        // show next Q
+        $('.js-readiness-quiz-slide.question-' + nextQ).addClass('active');
+    });
+
+    // go to prev question
+    $('.js-quiz-prev').click(function (e) {
+        e.preventDefault();
+
+        // get the current question
+        currentQ = $('.js-readiness-quiz-slide.active').attr('data-question');
+        var prevQ = Math.round(parseInt(currentQ) - 1);
+
+        // hide current Q
+        $('.js-readiness-quiz-slide.active').removeClass('active');
+        // show next Q
+        $('.js-readiness-quiz-slide.question-' + prevQ).addClass('active');
+    });
+
+    // reset button
+    $('.js-quiz-reset').click(function (e) {
+        e.preventDefault();
+
+        // go back to intro slide
+        $('.js-readiness-quiz-slide.active').removeClass('active');
+        $('.js-readiness-quiz-slide.intro').addClass('active');
+
+        // clear all answers
+        $('.js-quiz-question-input').each(function () {
+            $(this).prop('checked', false);
+        });
+
+        // disable all next buttons
+        $('.js-quiz-next').each(function () {
+            $(this).prop('disabled', true);
+        });
+
+    });
+
+    // finish button
+    $('.js-quiz-finish').click(function (e) {
+        e.preventDefault();
+
+        // go to results slide
+        $('.js-readiness-quiz-slide.active').removeClass('active');
+        $('.js-readiness-quiz-slide.quiz-result').addClass('active');
+
+        // get points
+        var score = 0;
+        $('.js-quiz-question-input:checked').each(function() {
+            score += Number($(this).val()); // Convert value to number and add to total
+        });
+
+        // display score + level
+        $('.js-score').html(score);
+
+        if( score <= 14 ) {
+            $('.js-results-level-wrap').addClass('level-1');
+        }
+        if( score > 15 && score < 21 ) {
+            $('.js-results-level-wrap').addClass('level-2');
+        }
+        if( score > 20 ) {
+            $('.js-results-level-wrap').addClass('level-3');
+        }
+    });
+
+    // get results form popup
+    var quizFormUnloaded = true;
+    $(document).on('click', '.js-quiz-get-results', function(e) {
+        e.preventDefault();
+
+        // get points
+        var score = 0;
+        $('.js-quiz-question-input:checked').each(function() {
+            score += Number($(this).val()); // Convert value to number and add to total
+        });
+
+        // get answers
+        var answers = [];
+        $('.js-quiz-question-input:checked').each(function(index) {
+            var questionNumber = $(this).attr('name').replace(/\D/g, '');
+            var answer = $(this).data('answer');
+
+            answers.push(questionNumber, answer);
+        });
+        var jsonAnswers = JSON.stringify(answers);
+
+        if(quizFormUnloaded){  
+            var quizFormID = $('.js-quiz-popup-form').attr('data-form');
+            hbspt.forms.create({
+                region: "na1",
+                portalId: "8858700",
+                formId: quizFormID,
+                target: ".js-quiz-popup-form",
+                onFormReady: function ($form) {
+                    $form.find('input[name="cybercrime_trends_2025_quiz_answer"]').val(jsonAnswers);
+                    $form.find('input[name="cybercrime_trends_2025_quiz_score"]').val(score);
+                }                   
+            });
+
+            quizFormUnloaded = false;
+        }
+
+        $('.js-quiz-popup-wrapper').addClass('show');
+    });
+
+});

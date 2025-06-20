@@ -1,0 +1,25 @@
+jQuery(function($){
+    var swiper4 = new Swiper(".swiper-resources", {
+        slidesPerView: 3.3,
+        spaceBetween: 20,
+        centerInsufficientSlides: true,
+        navigation: {
+            nextEl: ".swiper-next1",
+            prevEl: ".swiper-prev1",
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1.3,
+            },
+            577: {
+                slidesPerView: 2.3,
+            },
+            768: {
+                slidesPerView: 2.5,
+            },
+            992: {
+                slidesPerView: 3.5,
+            },
+        },
+    });
+});

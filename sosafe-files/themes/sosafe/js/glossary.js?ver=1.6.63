@@ -1,0 +1,61 @@
+jQuery(function($){
+    function t() {
+        var s = $(".js-search-target").length,
+            t = $(".js-search-target[class*='filtered']").length;
+        s == t ? ($(".no-results").addClass("show")) : ($(".no-results").removeClass("show"));
+    }
+    var searchInput = $(".js-glossary-search");
+    $(searchInput).keyup(function () {
+        var searchTerm = $(this).val();
+
+        if($(searchInput).val()) {
+            $(".js-search-target").each(function () {
+                $(this).text().search(new RegExp(searchTerm, "i")) < 0 ? $(this).addClass("search-filtered") : $(this).removeClass("search-filtered");
+
+                // check if any are showing
+                $(".article-glossary").each(function () {
+                    var count = $(this).find('.article-content').length;
+                    var filtered = $(this).find('.search-filtered').length;
+
+                    if(count === filtered){
+                        $(this).addClass('d-none');
+                    } else {
+                        $(this).removeClass('d-none');
+                    }
+                });        
+            });
+        } else {
+            $(".js-search-target").removeClass("search-filtered");
+            $(".no-results").removeClass("show");
+        }
+    });
+});
+
+(function() {
+    'use strict';
+
+    var section = document.querySelectorAll(".article-glossary");
+    var sections = {};
+    var i = 0;
+
+    Array.prototype.forEach.call(section, function(e) {
+        sections[e.id] = e.offsetTop + 350;
+    });
+
+    window.onscroll = function() {
+        var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+        
+        for (i in sections) {
+            if (sections[i] <= scrollPosition) {
+                var elems = document.querySelectorAll(".js-in-page-link");
+                [].forEach.call(elems, function(el) {
+                    el.classList.remove("active");
+                });
+
+                if( i && document.querySelectorAll('.js-glossary-nav a[href*=' + i + ']') ){
+                    jQuery('.js-glossary-nav a[href*=' + i + ']').addClass('active');
+                }
+            }
+        }
+    };
+})();

@@ -1,0 +1,3 @@
+var lightboxVideo = GLightbox({
+    selector: '.js-gallery'
+});

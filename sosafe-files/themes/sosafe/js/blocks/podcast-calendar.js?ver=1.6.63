@@ -1,0 +1,48 @@
+jQuery(function($){
+    $('.js-close-podcast-popup, .js-podcast-popup-overlay').click(function (e) {
+        e.preventDefault();
+
+        $('.js-podcast-popup-wrapper').removeClass('show');
+
+        // remove src from iframe
+        $('.podcast-iframe').attr('src', '');
+
+        // remove hash
+        if (window.location.hash) {
+            history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+          
+    });
+
+    $('.js-podcast-popup-trigger').click(function (e) {
+        e.preventDefault();
+
+        var podcast = $(this).attr('data-src');
+        // add src to iframe
+        $('.podcast-iframe').attr('src', podcast);
+
+        console.log(podcast);
+        $('.js-podcast-popup-wrapper').addClass('show');
+
+        const currentHash = window.location.hash.slice(1);
+
+        // add hash to url
+        const urlObject = new URL(podcast);
+        const pathSegments = urlObject.pathname.split('/');
+        const result = pathSegments[1];
+        window.location.hash = result;
+
+    });
+
+    // open popup if hash exists
+    const currentHash = window.location.hash.slice(1);
+    if (currentHash) {
+        const podcastLinks = document.querySelectorAll('.js-podcast-popup-trigger');
+        podcastLinks.forEach(link => {
+            const dataSrc = link.getAttribute('data-src');
+            if (dataSrc && dataSrc.includes(currentHash)) {
+                link.click();
+            }
+        });
+    }
+});

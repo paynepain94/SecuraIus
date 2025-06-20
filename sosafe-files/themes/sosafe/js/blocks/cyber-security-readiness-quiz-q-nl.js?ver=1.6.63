@@ -1,0 +1,93 @@
+// Array keys:
+// 0: question
+// 1: answer 1
+// 2: answer 1 poimts
+// 3: answer 2
+// 4: answer 2 poimts
+// 5: answer 3
+// 6: answer 3 poimts
+
+// json array for questions
+var questions = {
+    "question1": [
+        'Wanneer jouw organisatie een nieuwe dreiging of kwetsbaarheid identificeert, hoe ziet de aanpak er dan uit?',
+        'Dreigingen worden proactief gedetecteerd en aangepakt, vaak nog voordat ze zich voordoen.',
+        '3',
+        'We vertrouwen op ad hoc maatregelen, zoals per geval reageren, snelle oplossingen toepassen of problemen escaleren zonder een vooraf gedefinieerd proces.',
+        '1',
+        'We volgen een gestructureerd incidentresponsplan dat rollen en acties duidelijk beschrijft.',
+        '2',
+    ],
+    "question2": [
+        'Hoe zorgt jouw organisatie ervoor dat medewerkers goed zijn voorbereid op cyberdreigingen?',
+        'Medewerkers ontvangen op maat gemaakte beveiligingstrainingen en interactieve simulaties, afgestemd op hun rol en risico’s.',
+        '2',
+        'We organiseren jaarlijks algemene trainingssessies om aan de compliance eisen te voldoen.',
+        '3',
+        'Bewustwording van cybersecurity is geïntegreerd in de dagelijkse werkzaamheden, ondersteund door rolgerichte training en realtime tools zoals AI-gestuurde chatbots.',
+        '1',
+    ],
+    "question3": [
+        'A vendor you rely on experiences a data breach. What happens next?',
+        'Ons leveranciersrisicobeheer detecteert de inbreuk vroegtijdig en we nemen direct actie.',
+        '1',
+        'We worden gewaarschuwd door proactieve monitoringsystemen en voeren een vooraf bepaald beheersplan uit.',
+        '2',
+        'We komen pas achter het datalek wanneer het onze bedrijfsvoering verstoort.',
+        '3',
+    ],
+    "question4": [
+        'Een leverancier waar je op vertrouwt, krijgt te maken met een datalek. Hoe reageren jullie hierop?',
+        'We richten ons voornamelijk op het detecteren van phishing aanvallen via e-mail.',
+        '2',
+        'Onze beveiligingsmaatregelen bestrijken meerdere kanalen, met een toenemende dekking van nieuwere dreigingen.',
+        '3',
+        'We gebruiken geavanceerde tools om multichannel dreigingen in realtime te detecteren en erop te reageren.',
+        '1',
+    ],
+    "question5": [
+        'Wat is jullie aanpak voor het beheer van risico’s bij derden?',
+        'We evalueren leveranciers en hun toeleveringsketens grondig met behulp van automatisering en AI-inzichten.',
+        '1',
+        'We vertrouwen op basiscontracten en periodieke vragenlijsten voor leveranciers.',
+        '2',
+        'We beoordelen regelmatig de beveiligingsstatus van leveranciers en pakken de belangrijkste risico’s aan.',
+        '3',
+    ],
+    "question6": [
+        'Hoe worden cybersecurity risico’s binnen jouw organisatie gecommuniceerd?',
+        'Risico’s worden gedeeld met het management en medewerkers via rapportages en incidentele briefings.',
+        '3',
+        'Risicobewustzijn is verankerd in alle teams, met actieve betrokkenheid van het management.',
+        '1',
+        'Risicocommunicatie blijft beperkt tot de IT-afdeling.',
+        '2',
+    ],
+    "question7": [
+        'Hoe waarborgt jouw organisatie de beveiliging van AI-tools die worden ingezet?',
+        'AI-specifieke risico’s maken deel uit van onze bredere beveiligingsstrategie en worden continu gemonitord op kwetsbaarheden.',
+        '2',
+        'We hanteren basismaatregelen, zoals toegangscontrole en beleid voor gegevensbescherming.',
+        '1',
+        'We hebben AI-specifieke risico’s nog niet aangepakt.',
+        '3',
+    ],
+    "question8": [
+        'Hoe ziet jullie herstelproces eruit wanneer een kritisch systeem offline gaat door een cyberincident?',
+        'We hebben een gedocumenteerd herstelplan waarbij alle relevante teams betrokken zijn.',
+        '2',
+        'Geautomatiseerde systemen en samenwerking tussen teams zorgen voor minimale verstoring.',
+        '3',
+        'Het herstel is afhankelijk van de IT-teams die het probleem reactief oplossen.',
+        '1',
+    ],
+    "question9": [
+        'Hoe beoordeelt jouw organisatie de effectiviteit van haar cybersecurity initiatieven?',
+        'We meten compliance gerelateerde statistieken, zoals voltooiingspercentages van trainingen, maar niet de gedragsveranderingen.',
+        '1',
+        'Datagedreven inzichten maken  beveiligingsgedrag zichtbaar en sturen strategische verbeteringen aan.',
+        '3',
+        'We meten de voortgang met prestatie-indicatoren, zoals resultaten van phishing simulaties en responstijden bij incidenten.',
+        '2',
+    ]
+};

@@ -1,0 +1,93 @@
+// Array keys:
+// 0: question
+// 1: answer 1
+// 2: answer 1 poimts
+// 3: answer 2
+// 4: answer 2 poimts
+// 5: answer 3
+// 6: answer 3 poimts
+
+// json array for questions
+var questions = {
+    "question1": [
+        'Lorsque votre entreprise détecte une nouvelle menace ou vulnérabilité, comment se déroule de processus de réponse type ?',
+        'Les menaces sont détectées et gérées de manière proactive, souvent avant même qu’elles ne se matérialisent.',
+        '3',
+        'Nous nous appuyons sur des mesures ad hoc, en réagissant au cas par cas, par exemple, en appliquant rapidement des correctifs ou en faisant remonter les problèmes qui surviennent vers le service concerné, mais nous n’avons pas de procédure prédéfinie.',
+        '1',
+        'Nous suivons un plan d’intervention en cas d’incident qui précise les rôles et les actions de chacun.',
+        '2',
+    ],
+    "question2": [
+        'Comment votre entreprise s’assure-t-elle que les collaboratrices et collaborateurs savent gérer les cybermenaces ?',
+        'Les employé·e·s reçoivent une formation sur mesure et sont soumis à des simulations interactives adaptées à leurs fonctions et aux risques qu’ils rencontrent.',
+        '2',
+        'Nous organisons, tous les ans, des sessions de formation génériques pour être en conformité avec les exigences légales.',
+        '3',
+        'La sensibilisation à la cybersécurité est intégrée dans les tâches quotidiennes, avec une formation spécifique aux fonctions de chacun et l’utilisation d’outils en temps réel, comme des chatbots d’IA.',
+        '1',
+    ],
+    "question3": [
+        'L’un de vos fournisseurs est victime d’une violation de données. Que faites-vous ?',
+        'La procédure de gestion du risque chez notre fournisseur permet d’identifier la violation suffisamment tôt et de réagir immédiatement.',
+        '1',
+        'Nous sommes alertés par nos systèmes de surveillance proactive et activons un plan prédéfini de limitation des risques.',
+        '2',
+        'Nous ne prenons conscience de la violation que lorsqu’elle a entraîné une perturbation de nos opérations.',
+        '3',
+    ],
+    "question4": [
+        'Comment votre entreprise gère-t-elle les menaces multicanal, utilisant par exemple le phishing, le smishing et le vishing ?',
+        'Nous nous concentrons principalement sur la détection des attaques de phishing passant par les e-mails.',
+        '2',
+        'Notre système de défense gère plusieurs canaux et couvre de plus en plus les nouvelles formes de menaces.',
+        '3',
+        'Nous utilisons des outils perfectionnés pour détecter et réagir en temps réel aux menaces multivectorielles.',
+        '1',
+    ],
+    "question5": [
+        'Comment envisagez-vous la gestion du risque tiers ?',
+        'Nous procédons à une évaluation intégrale des fournisseurs et de leurs chaînes d’approvisionnement, en utilisant des outils automatisés et des analyses augmentées à l’IA.',
+        '1',
+        'Nous nous basons sur des contrats basiques de prestation de service et envoyons de temps en temps à nos fournisseurs des questionnaires.',
+        '2',
+        'Nous évaluons la posture des prestataires en matière de sécurité et appliquons des solutions pour les principaux risques.',
+        '3',
+    ],
+    "question6": [
+        'Comment communiquez-vous autour des risques de cybersécurité au sein de votre entreprise ?',
+        'Les risques sont communiqués à la direction et au personnel par le biais de rapports et de briefings occasionnels.',
+        '3',
+        'Chaque équipe a intégré les principes de sensibilisation à la cybersécurité, grâce aux initiatives activement lancées par la direction.',
+        '1',
+        'Les risques ne sont pas communiqués au-delà du service informatique.',
+        '2',
+    ],
+    "question7": [
+        'Comment garantissez-vous la sécurité des outils d’IA adoptés par votre entreprise ?',
+        'La gestion des risques propres à l’IA s’inscrit dans notre stratégie de sécurité globale, qui assure un suivi des vulnérabilités en continu.',
+        '2',
+        'Nous avons mis en place des protections de base : contrôle des accès et politiques de protection des données.',
+        '1',
+        'Nous n’avons pas encore mis en place de gestion des risques liés à l’IA.',
+        '3',
+    ],
+    "question8": [
+        'Si un cyberincident entraîne la mise hors ligne d’un de vos systèmes critiques, quelle procédure de restauration adoptez-vous ?',
+        'Nous avons un plan de restauration documenté qui implique toutes les équipes concernées.',
+        '2',
+        'Des systèmes automatisés et une collaboration transversale permettent de limiter les perturbations.',
+        '3',
+        'Les équipes informatiques sont chargées de résoudre le problème de manière réactive, en prenant en charge la restauration.',
+        '1',
+    ],
+    "question9": [
+        'De quelle manière votre entreprise évalue-t-elle l’efficacité des initiatives en matière de cybersécurité ?',
+        'Nous mesurons les indicateurs nécessaires pour la mise en conformité, tels que le taux d’achèvement de la formation, mais nous n’évaluons pas l’évolution des comportements.',
+        '1',
+        'Des données objectives nous permettent de suivre l’évolution des comportements et de décider des améliorations stratégiques.',
+        '3',
+        'Nous évaluons les progrès à l’aide des indicateurs clés de performance, tels que les résultats de la simulation de phishing et les délais de réponse en cas d’incident.',
+        '2',
+    ]
+};

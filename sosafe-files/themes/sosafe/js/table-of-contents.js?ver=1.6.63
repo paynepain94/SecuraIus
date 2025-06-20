@@ -1,0 +1,38 @@
+window.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            const id = entry.target.getAttribute('id');
+            if (entry.intersectionRatio > 0) {
+                if(document.querySelector(`.table-of-contents ul li a[href="#${id}"]`)) {
+                   var elems = document.querySelectorAll(`.table-of-contents ul li`);
+                    [].forEach.call(elems, function(el) {
+                        el.className = el.className.replace(/\bactive\b/, "");
+                    });
+                    document.querySelector(`.table-of-contents ul li a[href="#${id}"]`).parentElement.classList.add('active');
+                }
+            } 
+        });
+    });
+    // Track all sections that have an `h` applied
+    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach((section) => {
+        observer.observe(section);
+    });
+});
+
+jQuery(function($){
+    if( $('.table-of-contents').length ){
+        function navResize() {
+            if ($(window).width() > 960) {
+                if ($('#navbar-side').height() + $('header').height() > window.innerHeight) {
+                    $('.table-of-contents').addClass('scroll-toc');
+                }
+            } else {
+                $('.table-of-contents').removeClass('scroll-toc');
+            }
+        }
+        navResize();
+        $(window).resize(function () {
+            navResize();
+        });
+    }
+});

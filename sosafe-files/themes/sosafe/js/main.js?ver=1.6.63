@@ -1,0 +1,485 @@
+// Function to set a cookie
+function setCookie(name, value, days) {
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + date.toUTCString();
+    document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
+}
+
+// Function to get a cookie value
+function getCookie(name) {
+    const nameEQ = name + "=";
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+        let c = cookies[i].trim();
+        if (c.indexOf(nameEQ) === 0) {
+            return decodeURIComponent(c.substring(nameEQ.length, c.length));
+        }
+    }
+    return null;
+}
+
+jQuery(function($){
+
+    var nav = $(".sosafe-navbar");
+    var top = 150;
+    if ($(window).scrollTop() >= top) {
+        nav.addClass("fixed");
+    } else {
+        nav.removeClass("fixed");
+    }
+    
+    $(window).scroll(function () {
+        var nav = $(".sosafe-navbar");
+        var top = 50;
+        if ($(window).scrollTop() >= top) {
+            nav.addClass("fixed");
+        } else {
+            nav.removeClass("fixed");
+        }
+    });
+
+    $('.js-mobile-menu-toggle').click(function (e) {
+        e.preventDefault();
+        $('.js-mobile-menu-toggle').toggleClass('open');
+        $('.js-mobile-nav').toggleClass('open');
+        $('.mega-menu-header').toggleClass('menu-open');
+    });
+
+    $('.js-mobile-nav .mega-menu-trigger').click(function (e) {
+        e.preventDefault();
+
+        if( !$(this).hasClass('open') ) {
+            $('.mega-menu-trigger, .mega-menu-dropdown, .simple-menu-dropdown').removeClass('open');
+        }
+        $(this).toggleClass('open');
+        $(this).parents('.mega-menu-item').find('.mega-menu-dropdown, .simple-menu-dropdown').toggleClass('open');
+    });
+
+    $('.navbar-toggler').click(function (e) {
+        e.preventDefault();
+        $('.sosafe-navbar').toggleClass('showmenu');
+        $('.navbar-toggler').toggleClass('close-navbar');
+        $('.navbar-collapse').toggleClass('show');
+        $('.navbar-overlay').toggleClass('show');
+        $('.navbar-collapse').slideToggle();
+    });
+
+    // required for mobile nav
+    $('.dropdown-toggle[href="#"]').click(function (e) {
+        e.preventDefault();
+
+        if ($(window).width() < 1200) {
+            $(this).toggleClass('show');
+            $(this).siblings('.dropdown-menu').toggleClass('show');
+        }
+    });
+
+    $('#sosafe-header-menu > .dropdown, .navbar-nav > .dropdown').hover(function () {
+        if ($(window).width() >= 1200) {
+            var dropdown = $(this).find('.dropdown-toggle');
+            var menu = $(this).find('.dropdown-menu');
+
+            $(dropdown).addClass("show");
+            $(menu).addClass("show");
+        }
+    }, function () {
+        if ($(window).width() >= 1200) {
+            $('.dropdown-toggle').removeClass("show").delay(200);
+            $('.dropdown-menu').removeClass("show").delay(200);
+        }
+    });
+
+    if( $('.top-bar-container').length ){
+        // all commented out stuff has been moved to Borlabs due to cookies
+        // this shows by default, unless the cookie exists which is added when closed (when cookies accepted)
+
+        if (document.cookie.indexOf('hideTopBar') == -1 ) {
+            // if hideTopBar cookie does not exist, show it
+            jQuery('.js-top-bar').addClass('show-top-bar');
+            jQuery('footer.block-content').addClass('bar-active');
+        }
+
+        $('.js-close-top-bar').click(function (e) {
+            e.preventDefault();
+            // all commented out stuff has been moved to Borlabs due to cookies
+            // var expireDate = new Date();
+            // expireDate.setTime(expireDate.getTime()+(14*24*60*60*1000)); // 2 weeks
+
+            // document.cookie = "showTopBar=false; expires=" + expireDate + "; path=/"; // moved to Borlabs
+            $('.js-top-bar').removeClass('show-top-bar');
+            jQuery('footer.block-content').removeClass('bar-active');
+        });
+    }
+
+    if( $('.js-ss-modal-outer').length ){
+        // all commented out stuff has been moved to Borlabs due to cookies
+        // this shows by default, unless the cookie exists which is added when closed (when cookies accepted)
+        // var showModal = true;
+
+        $('.js-ss-modal-close').click(function (e) {
+            e.preventDefault();
+            // var expireDate = new Date();
+            // expireDate.setTime(expireDate.getTime()+(14*24*60*60*1000)); // 2 weeks
+
+            // document.cookie = "showModal=false; expires=" + expireDate + "; path=/";
+            $('.js-ss-modal-outer').addClass('closed');
+            // var showModal = false;
+        });
+
+
+        if (document.cookie.indexOf('hideModal') == -1 ) {
+            // if showModal cookie does not exist, show it
+            jQuery(window).scroll(function(){
+                if(jQuery(this).scrollTop() > 1000) {
+                    jQuery('.js-ss-modal-outer').addClass('modal-active');
+                }
+            });
+        }
+
+        // $('.js-ss-modal-click').click(function () {
+        //     var expireDate = new Date();
+        //     expireDate.setTime(expireDate.getTime()+(14*24*60*60*1000)); // 2 weeks
+        //     document.cookie = "showModal=false; expires=" + expireDate + "; path=/"; // moved to Borlabs
+        // });
+    }
+
+    if( $('.back-to-top').length ){
+
+        $(window).scroll(function(){
+            if($(this).scrollTop() > 1000) {
+                $('.back-to-top').addClass('show');
+            } else {
+                $('.back-to-top').removeClass('show');
+            }
+        });
+        $('.back-to-top').click(function (e) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            return false;
+        });
+    }
+
+    // this is no longer needed thanks to CSS scroll-behavior: smooth;
+    // $(document).on('click', 'a[href^="#"]', function (e) { // all links starting with #
+    //     if( $.attr(this, 'href') != '#' ) { // but no links which are JUST #
+    //         e.preventDefault();
+    //         document.querySelector(this.getAttribute('href')).scrollIntoView({
+    //             behavior: 'smooth'
+    //         });
+    //     }
+    // });
+
+    $('.js-sticky-cta-clicked').click(function () {
+        if (!sessionStorage['utm_content']) {
+            sessionStorage['utm_content'] = 'cta_green_bar';
+        }
+    });
+    $('.js-ss-modal-click').click(function () {
+        if (!sessionStorage['utm_content']) {
+            sessionStorage['utm_content'] = 'cta_popup';
+        }
+    });
+
+    // if utm parameters exist, add to session storage and pop into hubspot hidden fields (in case visitor clicks elsewhere and loses the params in the url)
+    var url = new URL(window.location.href);
+    var utm_campaign = url.searchParams.get('utm_campaign');
+    var utm_content = url.searchParams.get('utm_content');
+    var utm_medium = url.searchParams.get('utm_medium');
+    var utm_source = url.searchParams.get('utm_source');
+    var utm_term = url.searchParams.get('utm_term');
+
+    if( utm_campaign ){
+        sessionStorage['utm_campaign'] = utm_campaign;
+        console.log('utm_campaign = ' + utm_campaign);
+    }
+    if( utm_content ){
+        sessionStorage['utm_content'] = utm_content;
+        console.log('utm_content = ' + utm_content);
+    }
+    if( utm_medium ){
+        sessionStorage['utm_medium'] = utm_medium;
+        console.log('utm_medium = ' + utm_medium);
+    }
+    if( utm_source ){
+        sessionStorage['utm_source'] = utm_source;
+        console.log('utm_source = ' + utm_source);
+    }
+    if( utm_term ){
+        sessionStorage['utm_term'] = utm_term;
+        console.log('utm_term = ' + utm_term);
+    }
+
+    window.addEventListener('message', event => {
+        if(event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormReady') {
+            var session_utm_campaign = sessionStorage['utm_campaign'];
+            var session_utm_content = sessionStorage['utm_content'];
+            var session_utm_medium = sessionStorage['utm_medium'];
+            var session_utm_source = sessionStorage['utm_source'];
+            var session_utm_term = sessionStorage['utm_term'];
+
+            if( session_utm_campaign ){
+                $('.hs-input[name="utm_campaign"]').val(session_utm_campaign);
+            }
+            if( session_utm_content ){
+                $('.hs-input[name="utm_content"]').val(session_utm_content);
+            }
+            if( session_utm_medium ){
+                $('.hs-input[name="utm_medium"]').val(session_utm_medium);
+            }
+            if( session_utm_source ){
+                $('.hs-input[name="utm_source"]').val(session_utm_source);
+            }
+            if( session_utm_term ){
+                $('.hs-input[name="utm_term"]').val(session_utm_term);
+            }
+
+            $('.hs-form-field input').each(function(){
+                var tmpval;
+                tmpval = $(this).val();
+                if(tmpval === '') {
+                    $(this).parents('.hs-form-field').removeClass('label-active');
+                } else {
+                    $(this).parents('.hs-form-field').addClass('label-active');
+                }
+            });
+        }
+    });
+
+    if( $('.parallaxed').length ){
+        var b = document.getElementsByTagName("BODY")[0];  
+
+        b.addEventListener("mousemove", function(event) {
+            parallaxed(event);
+        });
+
+        function parallaxed(e) {
+            var x = document.getElementsByClassName("parallaxed");
+            var i;
+            for (i = 0; i < x.length; i++) {
+                var amountMovedX = (e.clientX * -0.3 / $(x[i]).attr('data-parallax-amount'));
+                var amountMovedY = (e.clientY * -0.3 / $(x[i]).attr('data-parallax-amount'));
+                x[i].style.transform='translate(' + amountMovedX + 'px,' + amountMovedY + 'px)'
+            }
+        }
+    }
+
+    $(".js-scroll-down").click(function(e) {
+        e.preventDefault();
+        var $target = $(this).parents('.js-scroll-parent').next('section');
+
+        $('html, body').animate({
+            scrollTop: $target.offset().top - 50
+        }, 100);
+    });
+
+    // custom scrollspy
+    // if( $('.scrollspy').length ){
+    //     $(window).bind('scroll', function() {
+    //         var currentTop = $(window).scrollTop();
+    //         var elems = $('.scrollspy h2');
+    //         elems.each(function(index){
+    //             var elemTop 	= $(this).offset().top;
+    //             var elemBottom 	= elemTop + $(this).height();
+    //             if(currentTop >= elemTop && currentTop <= elemBottom){
+    //                 var id 		= $(this).attr('id');
+    //                 var navElem = $('a[href="#' + id+ '"]');
+    //                 navElem.parent().addClass('active').siblings().removeClass( 'active' );
+    //             }
+    //         })
+    //     });
+    // }
+
+    // custom alternative to bootstrap tabs
+    $(document).on('click', '.js-tab-nav', function(e) {
+        e.preventDefault();
+        var $el = $(this);
+        var target = $(this).attr('data-target');
+        $(this).parents('.js-tabs').find('.js-tab-nav').removeClass('active');
+        $(this).addClass('active');
+
+        $(this).parents('.js-tabs').find('.js-tab-target').removeClass('show');
+
+        if( target == 'all' ) {
+            setTimeout(function() {
+                $el.parents('.js-tabs').find('.js-tab-target').removeClass('active');
+                $el.parents('.js-tabs').find('.js-tab-target').addClass('active');
+            }, 200);
+            setTimeout(function() {
+                $el.parents('.js-tabs').find('.js-tab-target').addClass('show');
+            }, 400);
+        } else {
+            setTimeout(function() {
+                $el.parents('.js-tabs').find('.js-tab-target').removeClass('active');
+                $el.parents('.js-tabs').find('.js-tab-target.' + target).addClass('active');
+            }, 200);
+            setTimeout(function() {
+                $el.parents('.js-tabs').find('.js-tab-target.' + target).addClass('show');
+            }, 400);
+        }
+    
+    });
+
+    // inner tabs
+    $(document).on('click', '.js-inner-tab-nav', function(e) {
+        e.preventDefault();
+        var $el = $(this);
+        var target = $(this).attr('data-target');
+        $(this).parents('.js-inner-tabs').find('.js-inner-tab-nav').removeClass('active');
+        $(this).addClass('active');
+
+        $(this).parents('.js-inner-tabs').find('.js-inner-tab-target').removeClass('show');
+        setTimeout(function() {
+            $el.parents('.js-inner-tabs').find('.js-inner-tab-target').removeClass('active');
+            $el.parents('.js-inner-tabs').find('.js-inner-tab-target.' + target).addClass('active');
+        }, 200);
+        setTimeout(function() {
+            $el.parents('.js-inner-tabs').find('.js-inner-tab-target.' + target).addClass('show');
+        }, 400);
+    
+    });
+
+    // custom alternative to bootstrap collapse / accordion
+    $(document).on('click', '.accordion-button', function(e) {
+        e.preventDefault();
+
+        $(this).toggleClass('active');
+        $(this).parents('.accordion-item').find('.accordion-collapse').stop().slideToggle();
+
+    });
+
+    // start demo form popup
+    var demoFormUnloaded = true;
+    $(document).on('click', '.js-demo-popup-open', function(e) {
+        e.preventDefault();
+
+        // Check if localStorage has 'popupOpened'
+        if (!localStorage.getItem('demo_popup_opened')) {
+            localStorage.setItem('demo_popup_opened', 'true');
+        }
+        
+        if(demoFormUnloaded){  
+            var demoFormID = $('.js-demo-popup-form').attr('data-form');
+            hbspt.forms.create({
+                region: "na1",
+                portalId: "8858700",
+                formId: demoFormID,
+                target: ".js-demo-popup-form",
+                onFormSubmit: function($form){
+                    if (!localStorage.getItem('demo_popup_submitted')) {
+                        localStorage.setItem('demo_popup_submitted', 'true');
+                    }
+                }        
+            });
+
+            demoFormUnloaded = false;
+        }
+
+        $('.js-demo-popup-wrapper').addClass('show');
+    });
+
+    $('.js-close-demo-popup, .js-demo-popup-overlay').click(function (e) {
+        e.preventDefault();
+        $('.js-demo-popup-wrapper, .js-tour-popup-wrapper, .js-quiz-popup-wrapper, .js-pricing-popup-wrapper, .js-cta-popup-wrapper').removeClass('show');
+    });
+    
+    // open form popup if it has been opened before but the form hasn't been submitted
+    if (localStorage.getItem('demo_popup_opened') === 'true' && !localStorage.getItem('demo_popup_submitted')) {
+        setTimeout(function() {
+            $('.js-demo-popup-open').click();
+            localStorage.removeItem('demo_popup_opened'); // Ensure it happens only once
+        }, 1000); // Delay to ensure page load completion
+    }
+
+    // start virtual tour form popup
+    var tourFormUnloaded = true;
+    $(document).on('click', '.js-tour-popup-open', function(e) {
+        e.preventDefault();
+
+        if(tourFormUnloaded){  
+            var demoFormID = $('.js-tour-popup-form').attr('data-form');
+            hbspt.forms.create({
+                region: "na1",
+                portalId: "8858700",
+                formId: demoFormID,
+                target: ".js-tour-popup-form"
+            });
+
+            tourFormUnloaded = false;
+        }
+
+        $('.js-tour-popup-wrapper').addClass('show');
+    });
+
+    // start generic CTA form popup
+    var tourFormUnloaded = true;
+    $(document).on('click', '.js-cta-popup-open', function(e) {
+        e.preventDefault();
+
+        if(tourFormUnloaded){  
+            var demoFormID = $('.js-cta-popup-form').attr('data-form');
+            hbspt.forms.create({
+                region: "na1",
+                portalId: "8858700",
+                formId: demoFormID,
+                target: ".js-cta-popup-form"
+            });
+
+            tourFormUnloaded = false;
+        }
+
+        $('.js-cta-popup-wrapper').addClass('show');
+    });
+
+});
+
+// lazy load videos
+if( document.querySelector('video.lazy') ) {
+    document.addEventListener("DOMContentLoaded", function() {
+        var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy"));
+    
+        if ("IntersectionObserver" in window) {
+            var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(function(video) {
+                    if (video.isIntersecting) {
+                        for (var source in video.target.children) {
+                            var videoSource = video.target.children[source];
+                            if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+                                videoSource.src = videoSource.dataset.src;
+                            }
+                        }
+            
+                        video.target.load();
+                        video.target.classList.remove("lazy");
+                        lazyVideoObserver.unobserve(video.target);
+                    }
+                });
+            });
+        
+            lazyVideos.forEach(function(lazyVideo) {
+                lazyVideoObserver.observe(lazyVideo);
+            });
+        }
+    });
+}
+
+// Check if the "session_start_page" cookie is set, if not, set it to the current page URL
+const sessionStartPageCookieName = "session_start_page";
+if (!getCookie(sessionStartPageCookieName)) {
+    setCookie(sessionStartPageCookieName, window.location.href, 365); // Cookie expires in 1 year
+}
+
+// Add the event listener to populate the form field
+window.addEventListener('message', event => {
+    if (event.data.type === 'hsFormCallback' && event.data.eventName === 'onFormReady') {
+        const sessionStartPage = getCookie(sessionStartPageCookieName);
+        if (sessionStartPage) {
+            // Populate the form field with the cookie value
+            const inputField = document.querySelector('input[name="session_start_page"]');
+            if (inputField) {
+                inputField.value = sessionStartPage;
+            }
+        }
+    }
+});

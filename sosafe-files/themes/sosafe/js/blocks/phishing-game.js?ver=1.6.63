@@ -1,0 +1,353 @@
+String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) { 
+        return typeof args[number] != 'undefined'
+            ? args[number]
+            : match
+        ;
+    });
+};
+
+// get the keys of the array and randomise them
+function randomize(a, b) {
+    return Math.random() - 0.5;
+}
+var keys = Object.keys(emails);
+keys.sort(randomize);
+
+jQuery(function($){
+
+    var emailPreviewTemplate = $("#game-email-preview").html();
+    var emailTemplate = $("#game-email").html();
+    
+    // build out the emails
+
+    // loop through the shuffled keys
+    for (var key in keys) {
+        var email = keys[key];
+        
+        // Array keys:
+        // 0 type
+        // 1 subject
+        // 2 name
+        // 3 email
+        // 4 initials
+        // 5 date
+        // 6 content
+
+        $('.js-email-preview-list').append(
+            emailPreviewTemplate.format(
+                emails[email][0],
+                emails[email][1],
+                emails[email][2],
+                emails[email][3],
+                emails[email][4],
+                emails[email][5],
+                email
+            )
+        );
+
+        if( key == 0 ){
+            $('.js-email').append(
+                emailTemplate.format(
+                    emails[email][0],
+                    emails[email][1],
+                    emails[email][2],
+                    emails[email][3],
+                    emails[email][4],
+                    emails[email][5],
+                    emails[email][6],
+                    email
+                )
+            );
+        }
+    }
+
+    // open the top email
+    $('.js-email-preview-list .js-email-open:first').removeClass('unread');
+    $('.js-email-preview-list .js-email-open:first').addClass('open');
+
+    // open emails from list
+    $('.js-email-open').click(function (e) {
+        e.preventDefault();
+
+        $('.js-email-open').removeClass('open');
+
+        $(this).removeClass('unread');
+        $(this).addClass('open');
+
+        var email = $(this).attr('data-email');
+
+        $('.js-email').empty();
+        
+        $('.js-email').append(
+            emailTemplate.format(
+                emails[email][0],
+                emails[email][1],
+                emails[email][2],
+                emails[email][3],
+                emails[email][4],
+                emails[email][5],
+                emails[email][6],
+                email
+            )
+        );
+
+        // update the inbox unread number
+        var unreadEmails = $('.message.unread').length;
+        $('.js-unread-emails').html(unreadEmails);
+    });
+
+    $('.js-prb').click(function (e) {
+        e.preventDefault();
+
+        var email = $('.js-open-email').attr('data-email');
+
+        // report this email!
+        var emailType = $('.js-open-email').attr('data-type');
+
+        // only continue if this has not been answered before
+        if( !$('.js-email-open[data-email="' + email + '"]').hasClass('answered') ) {
+            if( emailType == 'phishing' ) {
+                // if it is a phishing email, congrats you get 3 points!
+                var score = parseInt($('.js-score').attr('data-score'));
+                var newScore = score + 3;
+                $('.js-score').html(newScore);
+                $('.js-score').attr('data-score', newScore);
+
+                $('.js-email-open[data-email="' + email + '"]').addClass('correct');
+            } else {
+                $('.js-email-open[data-email="' + email + '"]').addClass('incorrect');
+            }
+        }
+        
+        $('.js-email-open[data-email="' + email + '"]').addClass('answered');
+
+        setTimeout(function() {
+            $('.js-email-open[data-email="' + email + '"]').slideUp();
+        }, 300);
+
+        setTimeout(function() {
+            // open next unread email
+            $('.js-email-open[data-email="' + email + '"]').next('.unread').click();
+        }, 750);
+
+        var unreadEmails = $('.message.unread').length;
+        if( unreadEmails == '0' ) {
+            finalPopup();
+        }
+        
+    });
+
+    $('.js-safe').click(function (e) {
+        e.preventDefault();
+
+        var email = $('.js-open-email').attr('data-email');
+
+        // this email is safe?
+        var emailType = $('.js-open-email').attr('data-type');
+
+        // only continue if this has not been answered before
+        if( !$('.js-email-open[data-email="' + email + '"]').hasClass('answered') ) {
+            if( emailType == 'safe' ) {
+                // if it is a safe email, congrats you get 3 points!
+                var score = parseInt($('.js-score').attr('data-score'));
+                var newScore = score + 3;
+                $('.js-score').html(newScore);
+                $('.js-score').attr('data-score', newScore);
+
+                $('.js-email-open[data-email="' + email + '"]').addClass('correct');
+            } else {
+                // but if it isn't you don't get any points :(
+                // var score = parseInt($('.js-score').attr('data-score'));
+                // var newScore = score - 1;
+                // $('.js-score').html(newScore);
+                // $('.js-score').attr('data-score', newScore);
+
+                $('.js-email-open[data-email="' + email + '"]').addClass('incorrect');
+            }
+        }
+
+        $('.js-email-open[data-email="' + email + '"]').addClass('answered');
+        
+        setTimeout(function() {
+            $('.js-email-open[data-email="' + email + '"]').slideUp();
+        }, 300);
+
+        setTimeout(function() {
+            // open next unread email
+            $('.js-email-open[data-email="' + email + '"]').next('.unread').click();
+        }, 750);
+
+        var unreadEmails = $('.message.unread').length;
+        if( unreadEmails == '0' ) {
+            finalPopup();
+        }
+
+    });
+
+    function finalPopup() {
+        $('.interactive-phishing-demo-outer').removeClass('playing');
+        $('.interactive-phishing-demo-outer').addClass('end');
+
+        var score = parseInt($('.js-score').attr('data-score'));
+
+        // delete the countdown element and replace with static
+        var timeTaken = $('#timer-minutes').text() + ':' + $('#timer-seconds').text();
+        $('<p class="time">' + timeTaken + '</p>').insertAfter('.js-time');
+        $('.js-time').remove();
+
+        // hide email
+        $('.js-open-email').fadeOut();
+
+        // update the sharing links with the score
+        $('.js-share').each(function(){
+            var shareUrl = $(this).attr('href');
+            shareUrl = shareUrl.replace('[[points]]', score);
+            $(this).attr('href', shareUrl);
+        });
+
+        // end popup content
+        // low score
+        var endPopupTitle = "Cyber Apprentice 🚀";
+        var endPopupContent = "<p class='mb-4'>You've earned <strong style='color: #00d37e;'>" + score + " points</strong> in <strong style='color: #00d37e;'>" + timeTaken + "</strong>! Remember, every apprentice to detective starts somewhere, and you’re well on your way. Our free content below is packed with tips to help you spot phishing emails like a pro.</p>";
+
+        // medium score
+        if( score > 35 && score < 46 ) {
+            var endPopupTitle = "Cyber Fighter 🕵️‍♂️";
+            var endPopupContent = "<p class='mb-4'>You scored <strong style='color: #00d37e;'>" + score + " points</strong> in <strong style='color: #00d37e;'>" + timeTaken + "</strong>! You've got a keen eye, and with a bit more practice, those hackers won't stand a chance. Dive deeper into our free content below to sharpen your phishing detection skills even more and become a cyber hero.</p>";
+        }
+        // high score
+        if( score > 46 ) {
+            var endPopupTitle = "Cyber Hero 🦸🏻";
+            var endPopupContent = "<p class='mb-4'>Wow, how many times have you done this before? You nailed it with <strong style='color: #00d37e;'>" + score + " points</strong> in spotting phishing emails in <strong style='color: #00d37e;'>" + timeTaken + "</strong>! However, while you've mastered this challenge, hackers have many tricks up their sleeves. Stay vigilant!</p>";
+        }
+
+        if( $('body').hasClass('lang-fr') ){
+            // low score
+            var endPopupTitle = "Cyberapprenti 🚀";
+            var endPopupContent = "<p class='mb-4'>Vous avez remporté <strong style='color: #00d37e;'>" + score + " points</strong> en <strong style='color: #00d37e;'>" + timeTaken + "</strong> ! C’est en forgeant qu’on devient forgeron... Vous êtes en bonne voie pour devenir un détective chevronné. Consultez notre contenu gratuit ci-dessous : vous y trouverez plein de bons conseils pour apprendre à détecter les e-mails de phishing comme un pro.</p>";
+
+            // medium score
+            if( score > 35 && score < 46 ) {
+                var endPopupTitle = "Cybercombattant 🕵️‍♂️";
+                var endPopupContent = "<p class='mb-4'>Vous avez remporté <strong style='color: #00d37e;'>" + score + " points</strong> en <strong style='color: #00d37e;'>" + timeTaken + "</strong> ! Vous avez un œil de lynx. Avec un peu plus d’entraînement, vous ne laisserez plus passer aucune tentative de piratage. Approfondissez vos connaissances en consultant notre contenu gratuit et devenez un cyberhéros.</p>";
+            }
+            // high score
+            if( score > 46 ) {
+                var endPopupTitle = "Cyberhéros 🦸🏻";
+                var endPopupContent = "<p class='mb-4'>Waouh ! Vous avez fait ça toute votre vie, non ? Vous avez remporté <strong style='color: #00d37e;'>" + score + " points</strong> en repérant les e-mails de phishing en <strong style='color: #00d37e;'>" + timeTaken + "</strong> ! Bravo pour ce beau score, mais restez vigilant : les hackers ont plus d’un tour dans leur sac !</p>";
+            }
+        }
+
+        if( $('body').hasClass('lang-de') ){
+            // low score
+            var endPopupTitle = "Cyber-Newcomer 🚀";
+            var endPopupContent = "<p class='mb-4'>Sie haben <strong style='color: #00d37e;'>" + score + " Punkte</strong> in <strong style='color: #00d37e;'>" + timeTaken + "</strong> erzielt! Kein Grund zur Sorge, jeder Profidetektiv fängt mal klein an. Sie sind auf einem guten Weg! Unten finden Sie kostenlose Inhalte und jede Menge wertvolle Tipps, die Ihnen helfen, Phishing-Mails wie ein Cyber-Hero zu erkennen.</p>";
+    
+            // medium score
+            if( score > 35 && score < 46 ) {
+                var endPopupTitle = "Cyber-Pro 🕵️‍♂️";
+                var endPopupContent = "<p class='mb-4'>Sie haben <strong style='color: #00d37e;'>" + score + " Punkte</strong> in <strong style='color: #00d37e;'>" + timeTaken + "</strong> erzielt und ein gutes Auge bewiesen. Mit etwas mehr Übung haben Cyberkriminelle in Ihrem Posteingang keine Chance mehr. Feilen Sie mit den kostenlosen Lerninhalten unten weiter an Ihren Phishing-Detektoren und steigen Sie zum Cyber-Hero auf.</p>";
+            }
+            // high score
+            if( score > 46 ) {
+                var endPopupTitle = "Cyber-Hero 🦸🏻";
+                var endPopupContent = "<p class='mb-4'>Wow, das haben Sie wohl nicht zum ersten Mal gemacht! Sie haben eine echte Spürnase für Phishing-Mails bewiesen und damit beachtliche <strong style='color: #00d37e;'>" + score + " Punkte</strong> in <strong style='color: #00d37e;'>" + timeTaken + "</strong> erzielt. Diese Herausforderung wäre gemeistert, doch denken Sie dran: Cyberkriminelle haben ständig neue Tricks in der Tasche. Bleiben Sie wachsam!</p>";
+            }
+        }
+
+        $('.js-end-popup .js-popup-title').text(endPopupTitle);
+        $('.js-end-popup .js-popup-content').prepend(endPopupContent);
+
+        // show final popup
+        $('.js-end-popup').removeClass('hidden');
+
+        // track event
+        _paq.push(['trackEvent', 'Engagement', 'ECSM Game', 'Completed game']);
+        
+        confetti();
+        confettiCount = 0;
+
+        setInterval(function(){
+            if( confettiCount < '2' ){
+                confetti();
+                confettiCount++;
+            }
+        }, 4000);
+    }
+
+    var timer;
+
+    function countUp() {
+        var sec = 0;
+        function pad ( val ) {
+            return val > 9 ? val : "0" + val;
+        }
+        timer = setInterval( function(){
+            document.getElementById("timer-seconds").innerHTML=pad(++sec%60);
+            document.getElementById("timer-minutes").innerHTML=parseInt(sec/60,10);
+        }, 1000);
+    }
+
+    $('.js-game-start').click(function (e) {
+        e.preventDefault();
+
+        $('.js-start-popup').addClass('hidden');
+        $('.interactive-phishing-demo-outer').removeClass('start');
+        $('.interactive-phishing-demo-outer').addClass('playing');
+
+        // start the timer!
+        countUp();
+
+        // track event
+        _paq.push(['trackEvent', 'Engagement', 'ECSM Game', 'Start game']);
+    });
+    
+    $("body").on("click", ".demo-inbox-email a", function (e) {
+        e.preventDefault();
+    });
+
+    function gameReset() {
+        $('.interactive-phishing-demo-outer').removeClass('playing');
+        $('.interactive-phishing-demo-outer').removeClass('end');
+        $('.interactive-phishing-demo-outer').addClass('start');
+        
+        // hide last popup
+        $('.js-end-popup').addClass('hidden');
+
+        // show first popup
+        $('.js-start-popup').removeClass('hidden');
+
+        // reset timer
+        clearInterval(timer);
+        $('.js-time').html('<span id="timer-minutes">0</span>:<span id="timer-seconds">00</span>');
+
+        // reset scores
+        $('.js-score').html('0');
+        $('.js-score').attr('data-score', '0');
+
+        // show all emails and mark as unread
+        $('.js-email-open').show();
+        $('.js-email-open').removeClass('correct');
+        $('.js-email-open').removeClass('incorrect');
+        $('.js-email-open').removeClass('answered');
+        $('.js-email-open').removeClass('open');
+        $('.js-email-open').addClass('unread');
+
+        // open the top email
+        $('.js-email-preview-list .js-email-open:first').removeClass('unread');
+        $('.js-email-preview-list .js-email-open:first').addClass('open');
+        $('.js-email-preview-list .js-email-open:first').click();
+        
+        // update unread emails number
+        $('.js-unread-emails').html('17');
+    }
+
+    $('.js-game-reset').click(function (e) {
+        e.preventDefault();
+
+        gameReset();
+    });
+
+});

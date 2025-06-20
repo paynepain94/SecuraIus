@@ -1,0 +1,31 @@
+jQuery(function($){
+    interviewsCarouselStyle = $('.swiper-interview-carousel').attr('data-slides');
+
+    if( interviewsCarouselStyle == 2 ) {
+        var interviewsCarousel = new Swiper(".swiper-interview-carousel", {
+            loop: true,
+            navigation: {
+                nextEl: ".swiper-interview-carousel-next",
+                prevEl: ".swiper-interview-carousel-prev",
+            },
+            slidesPerView: 'auto',
+            centeredSlides: true,
+            breakpoints: {
+              1200: {
+                slidesPerView: 2,
+                centeredSlides: false,
+              },
+            },
+        });
+    } else {
+        var interviewsCarousel = new Swiper(".swiper-interview-carousel", {
+            loop: true,
+            navigation: {
+                nextEl: ".swiper-interview-carousel-next",
+                prevEl: ".swiper-interview-carousel-prev",
+            },
+            slidesPerView: 'auto',
+            centeredSlides: true,
+        });
+    }
+});

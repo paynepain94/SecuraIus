@@ -1,0 +1,55 @@
+jQuery(function($){
+    $('.sosafe-forms').on('blur', '.hs-form-field input, .hs-form-field select', function() {
+        var tmpval;
+        tmpval = $(this).val();
+
+        if(tmpval === '') {
+            $(this).parents('.hs-form-field').removeClass('label-active');
+        } else {
+            $(this).parents('.hs-form-field').addClass('label-active');
+        }
+    });
+
+    $('.sosafe-forms').on('focusin', '.hs-form-field input, .hs-form-field select', function() {
+        var el = $(this);
+
+        setTimeout(function() {
+            var classes = $(el).attr("class");
+            
+            if( classes.includes('invalid') ) {
+                $(el).parents('.hs-form-field').addClass('input-error');
+            } else {
+                $(el).parents('.hs-form-field').removeClass('input-error');
+            }
+        });
+    });
+    $('.sosafe-forms').on('focusout', '.hs-form-field input, .hs-form-field select', function() {
+        var el = $(this);
+
+        setTimeout(function() {
+            var classes = $(el).attr("class");
+            
+            if( classes.includes('invalid') ) {
+                $(el).parents('.hs-form-field').addClass('input-error');
+            } else {
+                $(el).parents('.hs-form-field').removeClass('input-error');
+            }
+        });
+    });
+
+    $('.sosafe-forms').on('click', 'input[type="submit"]', function() {
+        $('.hs-form-field input, .hs-form-field select').each(function(){
+            var el = $(this);
+
+            setTimeout(function() {
+                var classes = $(el).attr("class");
+                
+                if( classes.includes('invalid') ) {
+                    $(el).parents('.hs-form-field').addClass('input-error');
+                } else {
+                    $(el).parents('.hs-form-field').removeClass('input-error');
+                }
+            });
+        });
+    });
+});

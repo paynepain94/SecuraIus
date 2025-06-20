@@ -1,0 +1,94 @@
+jQuery(function($){
+    if( $('.js-speakers-hide').length ){
+
+        $('.js-speakers-row-toggle').click(function (e) {
+            e.preventDefault();
+            $('.js-speakers-hide').addClass('open');
+        });
+    }
+
+    $('.js-tabbed-cards-open').click(function (e) {
+        e.preventDefault();
+        $('.js-tabbed-cards-hide').addClass('open');
+    });
+
+    if( $('.js-video-modal-trigger').length ){
+
+        var password = $('.additional-videos').attr('data-lock');
+        var urlParams = new URLSearchParams(window.location.search);
+        var unlocked = true;
+
+        if( password ) {
+            if( urlParams.get(password) == null ) {
+                var unlocked = false;
+            } else {
+                // videos unlocked, so remove the form
+                $('.block-content.block-resources').remove();
+                // and remove the is-locked class on the vids
+                $('.additional-videos').removeClass('is-locked');
+            }
+        }
+
+        var $videoSrc;
+        $('.js-video-modal-trigger').click(function (e) {
+            e.preventDefault();
+
+            if( !$(this).hasClass('feat-vid') ) {
+                if( !unlocked ) {
+                    $('html, body').animate({ scrollTop: $('#signup').offset().top - 150}, 300);
+                    e.stopPropagation();
+                }
+            }
+        });
+    }
+
+    if( $('.js-countdown').length ){
+        const myCountdown = new countdown({
+            target: '.js-countdown',
+            dayWord: ' days',
+            hourWord: ' hours',
+            minWord: ' mins',
+            secWord: ' seconds'
+          });
+    }
+
+    $('.js-tabbed-cards-toggle').click(function (e) {
+        e.preventDefault();
+
+        $('.js-tabbed-cards-toggle').removeClass('active');
+        $(this).addClass('active');
+
+        var tab = $(this).attr('data-tab');
+        $('.js-tab-target').removeClass('active');
+        $('.js-tab-target.' + tab).addClass('active');
+    });
+
+    $('.js-tab-card-desc').click(function (e) {
+        e.preventDefault();
+        $(this).toggleClass('open');
+        $(this).parent().find('.full-desc').slideToggle();
+    });
+
+    if( $('.js-speaker-info').length ){
+
+        $('.js-speaker-info').click(function (e) {
+            e.preventDefault();
+            $('.speaker-bio').removeClass('active');
+            $(this).next('.speaker-bio').addClass('active');
+        });
+        $('.js-close-speaker-bio').click(function (e) {
+            e.preventDefault();
+            $('.speaker-bio').removeClass('active');
+        });
+        $(document).keyup(function(e) {
+            if (e.key === "Escape") { // escape key maps to keycode `27`
+                $('.speaker-bio').removeClass('active');
+            }
+       });
+    }
+    
+    $(window).scroll((function () {
+        let w = (document.body.scrollTop || document.documentElement.scrollTop) / (document.documentElement.scrollHeight - document.documentElement.clientHeight) * 100;
+        $("#reading-progress-fill").css({ width: w + "%" })
+    }));
+});

@@ -1,0 +1,93 @@
+// Array keys:
+// 0: question
+// 1: answer 1
+// 2: answer 1 poimts
+// 3: answer 2
+// 4: answer 2 poimts
+// 5: answer 3
+// 6: answer 3 poimts
+
+// json array for questions
+var questions = {
+    "question1": [
+        'Wenn in Ihrer Organisation eine neue Bedrohung oder Schwachstelle erkannt wird, wie reagieren Sie normalerweise darauf?',
+        'Erkannte Bedrohungen werden proaktiv beseitigt – oft, bevor es zu ernsteren Zwischenfällen kommt.',
+        '3',
+        'Wir verlassen uns auf kurzfristige Ad-hoc-Lösungen und passen unsere Maßnahmen von Fall zu Fall an, ohne feste Prozesse zu befolgen.',
+        '1',
+        'Wir befolgen einen Incident Response Plan, in dem alle Zuständigkeiten und Schritte genau festgelegt sind.',
+        '2',
+    ],
+    "question2": [
+        'Wie stellt Ihre Organisation sicher, dass Mitarbeitende auf die verschiedenen Cyberbedrohungen vorbereitet sind?',
+        'Mitarbeitende erhalten personalisiertes Security-Training und interaktive, auf ihre Aufgaben und Risiken abgestimmte Simulationen.',
+        '2',
+        'Wir führen jährliche generische Schulungen durch, um Compliance-Anforderungen zu erfüllen.',
+        '3',
+        'Security Awareness ist fest im Arbeitsalltag verankert – dazu gehören auch auf individuelle Positionen abgestimmte Lerninhalte sowie KI-getriebene Chatbots zur Unterstützung der Mitarbeitenden in Echtzeit.',
+        '1',
+    ],
+    "question3": [
+        'Bei einem Ihrer wichtigsten Zulieferer kommt es zu einem Datenleck. Wie reagieren Sie?',
+        'Dank unserem Risikomanagement-System für Drittanbieter erkennen wir den Datenschutzverstoß frühzeitig und können schnell reagieren.',
+        '1',
+        'Wir werden durch unsere proaktiven Überwachsungssysteme gewarnt und befolgen einen vorgegebenen Reaktionsplan.',
+        '2',
+        'Wir bemerken den Angriff erst, wenn unser Geschäftsbetrieb davon beeinträchtigt wird.',
+        '3',
+    ],
+    "question4": [
+        'Wie ist Ihre Organisation in Bezug auf Multi-Channel-Angriffe wie Phishing, Smishing und Vishing aufgestellt?',
+        'Wir fokussieren uns vor allem auf Phishing-Angriffe per E-Mail.',
+        '2',
+        'In unsere Verteidigungsstrategie beziehen wir verschiedene Kanäle ein, mit verstärktem Fokus auf neuen Angriffsmethoden.',
+        '3',
+        'Modernste Tools ermöglichen uns, Multi-Channel-Angriffe in Echtzeit zu erkennen und schnell zu reagieren.',
+        '1',
+    ],
+    "question5": [
+        'Wie verwaltet Ihre Organisation das Drittparteienrisiko?',
+        'Drittanbieter und deren Lieferketten durchlaufen eine umfassende Bewertung, wobei wir Automationen und KI-gestützte Insights nutzen.',
+        '1',
+        'Wir nutzen gewöhnliche Zuliefererverträge und regelmäßige Fragebögen.',
+        '2',
+        'Wir beurteilen die Cyberresilienz unserer Zulieferer regelmäßig und beheben die größten Risiken.',
+        '3',
+    ],
+    "question6": [
+        'Wie werden Cyber-Sicherheitsrisiken innerhalb Ihrer Organisation kommuniziert?',
+        'Risiken werden der Führungsebene und den Mitarbeitenden in Reports und gelegentlichen Briefings mitgeteilt.',
+        '3',
+        'Wir schaffen in allen Teams Bewusstsein für Cyberrisiken, mit aktiver Unterstützung durch die Führungsebene.',
+        '1',
+        'Die Kommunikation zu Sicherheitsrisiken ist allein Sache der IT-Abteilung.',
+        '2',
+    ],
+    "question7": [
+        'Wie gewährleisten Sie die Sicherheit der in Ihrer Organisation genutzten KI-Tools?',
+        'KI-bezogene Risiken sind Bestandteil unserer allgemeinen Sicherheitsstrategie und wir prüfen ständig auf Schwachstellen.',
+        '2',
+        'Wir verfügen über grundlegende Schutzmaßnahmen, wie Zugriffskontrollen und Datenschutzrichtlinien.',
+        '1',
+        'Wir haben in Bezug auf KI-spezifische Risiken noch nichts unternommen.',
+        '3',
+    ],
+    "question8": [
+        'Wenn ein kritisches System aufgrund eines Cyberzwischenfalls ausfällt, wie läuft Ihre Recovery ab?',
+        'Wir haben einen feststehenden Recovery-Plan, der alle relevanten Teams miteinschließt.',
+        '2',
+        'Durch automatisierte Systeme und teamübergreifende Zusammenarbeit begrenzen wir Unterbrechungen auf ein Minimum.',
+        '3',
+        'Die Wiederherstellung ist Sache der IT-Abteilung, die das Problem reaktiv löst.',
+        '1',
+    ],
+    "question9": [
+        'Wie beurteilt Ihre Organisation die Wirksamkeit Ihrer Cyber-Security-Initiativen?',
+        'Wir messen Compliance-Metriken wie die Trainings-Abschlussquote, aber nicht die Verhaltensänderung.',
+        '1',
+        'Datenbasierte Insights geben uns Aufschluss über sicheres Verhalten und helfen uns, unsere Sicherheitsstrategie zu optimieren.',
+        '3',
+        'Wir bewerten unseren Fortschritt anhand von Kennzahlen, wie den Ergebnissen der Phishing-Simulationen und den Reaktionszeiten.',
+        '2',
+    ]
+};

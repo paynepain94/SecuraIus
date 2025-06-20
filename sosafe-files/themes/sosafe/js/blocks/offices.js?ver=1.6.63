@@ -1,0 +1,8 @@
+jQuery(function($){
+    $(".js-map-pin").hover(function () {
+        var office = $(this).attr('data-office');
+
+        $('.office-info').removeClass('show');
+        $('.office-info.' + office).addClass('show');
+    });
+});

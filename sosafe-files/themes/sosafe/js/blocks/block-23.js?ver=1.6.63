@@ -1,0 +1,14 @@
+jQuery(function($){
+    if( $('.swiper-awards').length ){
+        var swiperAwards = new Swiper(".swiper-awards", {
+            centeredSlides: true,
+            loop: true,
+            slidesPerView: 'auto',
+            variableWidth: true,
+            autoplay: {
+                delay: 3500,
+                disableOnInteraction: false,
+            },
+        });
+    }
+});

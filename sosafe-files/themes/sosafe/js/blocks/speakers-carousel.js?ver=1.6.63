@@ -1,0 +1,22 @@
+jQuery(function($){
+    
+    $('.js-speaker-carousel-open').click(function (e) {
+        e.preventDefault();
+
+        var modal = $(this).attr('data-speaker');
+        $('.js-speaker-modal-target.' + modal).addClass('active');
+    });
+
+    $('.js-close-speaker-modal').click(function (e) {
+        e.preventDefault();
+
+        $('.js-speaker-modal-target').removeClass('active');
+    });
+
+    $('.js-more-speakers').click(function (e) {
+        e.preventDefault();
+
+        $('.js-speakers-grid-overflow').addClass('open');
+    });
+
+});

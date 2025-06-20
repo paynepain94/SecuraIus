@@ -1,0 +1,116 @@
+setTimeout(function() {
+    var jobsLoaded = false;
+
+    const squad = document.querySelector(".js-squad");
+    const offices = document.querySelector(".js-offices-map");
+    const squadOptions = {
+        root: null,
+        threshold: 0.3,
+        rootMargin: "-100px",
+    };
+    const squadObserver = new IntersectionObserver(callBackFunction, squadOptions);
+    squadObserver.observe(squad);
+
+    const mapObserver = new IntersectionObserver(callBackFunction, squadOptions);
+    mapObserver.observe(offices);
+
+    function callBackFunction(entries) {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+
+            if( jobsLoaded == false ) {
+
+                jQuery.ajax({
+                    url: "https://api.ashbyhq.com/posting-api/job-board/sosafe",
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function (response) {
+
+                        var jobsArray = response.jobs;
+
+                        // add number of open positions to offices
+                        var dublinCount = 0;
+                        var londonCount = 0;
+                        var parisCount = 0;
+                        var lisbonCount = 0;
+                        var munichCount = 0;
+                        var amsterdamCount = 0;
+                        var cologneCount = 0;
+                        var berlinCount = 0;
+                        var sydneyCount = 0;
+                        var denverCount = 0;
+
+                        jobsArray.forEach(job => {
+                            if( job.location == 'Dublin') {
+                                dublinCount += 1;
+                            }
+                            if( job.location == 'London') {
+                                londonCount += 1;
+                            }
+                            if( job.location == 'Paris') {
+                                parisCount += 1;
+                            }
+                            if( job.location == 'Lisbon') {
+                                lisbonCount += 1;
+                            }
+                            if( job.location == 'Munich') {
+                                munichCount += 1;
+                            }
+                            if( job.location == 'Amsterdam') {
+                                amsterdamCount += 1;
+                            }
+                            if( job.location == 'Cologne') {
+                                cologneCount += 1;
+                            }
+                            if( job.location == 'Berlin') {
+                                berlinCount += 1;
+                            }
+                            if( job.location == 'Sydney') {
+                                sydneyCount += 1;
+                            }
+                            if( job.location == 'Denver') {
+                                denverCount += 1;
+                            }
+                        });
+
+                        jQuery('.js-dublin-count').html(dublinCount);
+                        jQuery('.js-london-count').html(londonCount);
+                        jQuery('.js-paris-count').html(parisCount);
+                        jQuery('.js-lisbon-count').html(lisbonCount);
+                        jQuery('.js-munich-count').html(munichCount);
+                        jQuery('.js-amsterdam-count').html(amsterdamCount);
+                        jQuery('.js-cologne-count').html(cologneCount);
+                        jQuery('.js-berlin-count').html(berlinCount);
+                        jQuery('.js-sydney-count').html(sydneyCount);
+                        jQuery('.js-denver-count').html(denverCount);
+
+                        // add jobs to cards
+                        var jobsList = jobsArray;
+                        jobsList.length = 4;
+                        jQuery('.job-card').remove();
+
+                        jobsList.forEach(job => {
+
+                            var cardLoc = [];
+                            cardLoc.push(job.location);
+        
+                            var moreLocs = job.secondaryLocations;
+                            moreLocs.forEach(index => {
+                                cardLoc.push(index.location);
+                            });
+        
+                            var displayText = cardLoc.join(', ');
+
+                            var jobCard = jQuery('<a href="jobs/job/?job=' + job.id + '" class="job-card"><p class="dept">' + job.department + '</p><p class="job-title">' + job.title + '</p><p class="loc"><img src="/sosafe-files/themes/sosafe/img/job-location-pin.svg" loading="lazy" width="12" height="18">' + displayText + '</p></a>');
+                            jQuery('.js-squad').append(jobCard);
+                        });
+                        
+                    }
+                });
+
+                jobsLoaded = true;
+            }
+        }
+    }
+
+}, 0);

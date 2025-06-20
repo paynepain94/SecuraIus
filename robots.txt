@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+Disallow: /wp-admin/*
+Disallow: /sosafe-login/
+Disallow: *&__hs*
+Disallow: *?__hs*
+Disallow: /?gh_jid*
+Disallow: /ppc/*
+Disallow: /de/ppc/*
+Disallow: /fr/ppc/*
+Disallow: /nl/ppc/*
+Disallow: /es/ppc/*
+Disallow: /it/ppc/*
+
+Sitemap: https://sosafe-awareness.com/sitemap_index.xml

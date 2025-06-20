@@ -1,0 +1,87 @@
+jQuery(function($){
+
+    $('.js-virtual-filter').change(function() {
+        if( $(this).is(':checked') ) {
+            $('.js-event-filter-target').addClass('virtual-filtered');
+            $('.js-event-filter-target.js-is-virtual').removeClass('virtual-filtered');
+        } else {
+            $('.js-event-filter-target').removeClass('virtual-filtered');
+        }
+
+        if( $('.js-event-filter-target').length === $('.events-list div[class*=filtered]').length ) {
+            $('.no-results').addClass('show');
+        } else {
+            $('.no-results').removeClass('show');
+        }
+    });
+
+    $('.js-live-filter').change(function() {
+        if( $(this).is(':checked') ) {
+            $('.js-event-filter-target').addClass('live-filtered');
+            $('.js-event-filter-target.js-is-live').removeClass('live-filtered');
+        } else {
+            $('.js-event-filter-target').removeClass('live-filtered');
+        }
+
+        if( $('.js-event-filter-target').length === $('.events-list div[class*=filtered]').length ) {
+            $('.no-results').addClass('show');
+        } else {
+            $('.no-results').removeClass('show');
+        }
+    });
+
+    $(".js-event-region-filter").on('change', function() {
+        if ($(this).val() == 'all'){
+            $('.js-event-filter-target').removeClass('region-filtered');
+        } else {
+            var region = $(this).val();
+            $('.js-event-filter-target').addClass('region-filtered');
+            $('.js-event-filter-target.' + region).removeClass('region-filtered');
+        }
+
+        if( $('.js-event-filter-target').length === $('.events-list div[class*=filtered]').length ) {
+            $('.no-results').addClass('show');
+        } else {
+            $('.no-results').removeClass('show');
+        }
+    });
+
+    $('.js-filter-reset').click(function (e) {
+        e.preventDefault();
+
+        $('.js-live-filter').prop( "checked", false );
+        $('.js-virtual-filter').prop( "checked", false );
+        $('.js-event-region-filter').val('all');
+
+        $('.js-event-filter-target').removeClass('virtual-filtered');
+        $('.js-event-filter-target').removeClass('live-filtered');
+        $('.js-event-filter-target').removeClass('region-filtered');
+
+        if( $('.js-event-filter-target').length === $('.events-list div[class*=filtered]').length ) {
+            $('.no-results').addClass('show');
+        } else {
+            $('.no-results').removeClass('show');
+        }
+    });
+
+    $('.js-future-events').click(function (e) {
+        e.preventDefault();
+        $('.events-nav a').removeClass('active');
+        $(this).addClass('active');
+
+        $('.js-future-events-list').removeClass('d-none');
+        $('.js-past-events-list').addClass('d-none');
+
+    });
+
+    $('.js-past-events').click(function (e) {
+        e.preventDefault();
+        $('.events-nav a').removeClass('active');
+        $(this).addClass('active');
+
+        $('.js-past-events-list').removeClass('d-none');
+        $('.js-future-events-list').addClass('d-none');
+
+    });
+
+});
